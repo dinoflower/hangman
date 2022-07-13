@@ -6,19 +6,19 @@ Gem::Specification.new do |spec|
   spec.name = "hangman"
   spec.version = Hangman::VERSION
   spec.authors = ["dinoflower"]
-  spec.email = ["kaedilove@gmail.com"]
+  spec.email = ["kaedidid@tutamail.com"]
 
-  spec.summary = "TODO: Write a short summary, because RubyGems requires one."
+  spec.summary = "A simple English-language word-guessing game, playable against the computer."
   spec.description = "TODO: Write a longer description or delete this line."
-  spec.homepage = "TODO: Put your gem's website or public repo URL here."
+  spec.homepage = "https://github.com/dinoflower/hangman"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["allowed_push_host"] = "TODO: Set to your gem server 'https://example.com'"
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "TODO: Put your gem's public repo URL here."
-  spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
+  spec.metadata["source_code_uri"] = "https://github.com/dinoflower/hangman"
+  spec.metadata["changelog_uri"] = "https://github.com/dinoflower/hangman/blob/main/CHANGELOG.md"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.

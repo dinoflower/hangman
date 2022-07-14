@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "hangman/version"
-require_relative "hangman/game"
+require_relative 'hangman/version'
+require_relative 'hangman/game'
 
 module Hangman
   class Error < StandardError; end
-  Game.new(Game.pick_word)
+  Game.new(Game.pick_word).play_game
 end
 
 # if saved file exists, ask if player would like to load saved file

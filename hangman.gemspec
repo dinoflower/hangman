@@ -9,7 +9,6 @@ Gem::Specification.new do |spec|
   spec.email = ["kaedidid@tutamail.com"]
 
   spec.summary = "A simple English-language word-guessing game, playable against the computer."
-  spec.description = "TODO: Write a longer description or delete this line."
   spec.homepage = "https://github.com/dinoflower/hangman"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"

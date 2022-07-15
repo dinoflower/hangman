@@ -1,4 +1,5 @@
 require 'pry-byebug'
+require_relative 'serializable_save'
 
 module Hangman
   class Game
@@ -9,6 +10,21 @@ module Hangman
       dictionary = File.read('google-10000-english-no-swears.txt').split
       dictionary.select! { |word| word.length > 4 }
       dictionary.sample
+    end
+
+    def self.load_save
+      puts 'Please choose your save file:'
+      Dir.each_child('data') { |x| puts x.delete_suffix('.txt') }
+      save_file = gets.chomp
+      contents = File.read("data/#{save_file}.txt")
+      unserialize(contents)
+    end
+
+    def self.unserialize(string)
+      obj = @@serializer.parse(string)
+      obj.keys.each do |key|
+        instance_variable_set(key, obj[key])
+      end
     end
 
     def initialize(word)
@@ -44,8 +60,8 @@ module Hangman
       Dir.mkdir('data') unless Dir.exist?('data')
       puts 'Name your save file:'
       extension = gets.chomp
-      save_file = File.new("/data/#{extension}.json")
-      save_file.write(json)
+      File.open("data/#{extension}.txt", "w") { |save_file| save_file.puts json }
+      exit
     end
 
     def guess_letter
@@ -85,9 +101,9 @@ module Hangman
     def play_game
       generate_display
       loop do
-        prompt_save
         puts @display_hash.values.join(' ')
         guess_letter
+        prompt_save
         break if @lives == 0 || @display_hash.values.join == @word
       end
       end_message = @lives == 0 ? "The word was #{@word}. Better luck next time!" : 'Congratulations!'
@@ -95,5 +111,3 @@ module Hangman
     end
   end
 end
-
-# prompt player (and ask if they would like to save)

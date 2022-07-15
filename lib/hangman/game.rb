@@ -2,6 +2,7 @@ require 'pry-byebug'
 
 module Hangman
   class Game
+    include SerializableSave
     attr_accessor :lives, :message, :incorrect_guesses, :guesses_string, :display_hash
 
     def self.pick_word
@@ -24,9 +25,33 @@ module Hangman
       end
     end
 
+    def prompt_save
+      puts 'Would you like to save your game? (y/n)'
+      answer = gets.chr.upcase
+      case answer
+      when 'Y'
+        save_game
+      when 'N'
+        return
+      else
+        puts 'Please answer "yes" or "no."'
+        prompt_save
+      end
+    end
+
+    def save_game
+      json = serialize
+      Dir.mkdir('data') unless Dir.exist?('data')
+      puts 'Name your save file:'
+      extension = gets.chomp
+      save_file = File.new("/data/#{extension}.json")
+      save_file.write(json)
+    end
+
     def guess_letter
       puts "Incorrect guesses: #{@incorrect_guesses.join(', ')}" unless @incorrect_guesses.empty?
-      puts [nil, "You have #{@lives} lives remaining. Guess a letter:"]
+      puts [nil, "You have #{@lives} lives remaining. Guess a letter:"] unless @lives == 1
+      puts [nil, "You only have one life left! Guess a letter:"] if @lives == 1
       letter = gets.chr.upcase
       guess_letter unless letter.match?(/[a-zA-Z]/)
 
@@ -60,6 +85,7 @@ module Hangman
     def play_game
       generate_display
       loop do
+        prompt_save
         puts @display_hash.values.join(' ')
         guess_letter
         break if @lives == 0 || @display_hash.values.join == @word
@@ -70,8 +96,4 @@ module Hangman
   end
 end
 
-# if present in the word, display all instances, replacing the underscores
-# if absent, add to "guesses" array, and display along with a message re: lives remaining
 # prompt player (and ask if they would like to save)
-# continue until word is solved or player runs out of lives
-# dislay win/loss message

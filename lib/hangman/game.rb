@@ -15,7 +15,7 @@ module Hangman
       puts 'Please choose your save file:'
       Dir.each_child('data') { |x| puts x.delete_suffix('.yaml') }
       save_name = gets.chomp
-      f = File.new("data/#{save_file}.yaml")
+      f = File.new("data/#{save_name}.yaml")
       yaml = f.read
       YAML::load(yaml)
     end
@@ -29,8 +29,10 @@ module Hangman
 
     def generate_display
       puts 'Guess the secret word! Six incorrect guesses, and you lose.'
-      @word.chars.each_index do |index|
-        @display_hash[index] = '_'
+      if @display_hash.empty?
+        @word.chars.each_index do |index|
+          @display_hash[index] = '_'
+        end
       end
     end
 

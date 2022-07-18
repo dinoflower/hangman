@@ -1,9 +1,8 @@
 require 'pry-byebug'
-require_relative 'serializable_save'
+require 'yaml'
 
 module Hangman
   class Game
-    include SerializableSave
     attr_accessor :lives, :message, :incorrect_guesses, :guesses_string, :display_hash
 
     def self.pick_word
@@ -14,17 +13,11 @@ module Hangman
 
     def self.load_save
       puts 'Please choose your save file:'
-      Dir.each_child('data') { |x| puts x.delete_suffix('.txt') }
-      save_file = gets.chomp
-      contents = File.read("data/#{save_file}.txt")
-      unserialize(contents)
-    end
-
-    def self.unserialize(string)
-      obj = @@serializer.parse(string)
-      obj.keys.each do |key|
-        instance_variable_set(key, obj[key])
-      end
+      Dir.each_child('data') { |x| puts x.delete_suffix('.yaml') }
+      save_name = gets.chomp
+      f = File.new("data/#{save_file}.yaml")
+      yaml = f.read
+      YAML::load(yaml)
     end
 
     def initialize(word)
@@ -56,11 +49,11 @@ module Hangman
     end
 
     def save_game
-      json = serialize
+      yaml = YAML::dump(self)
       Dir.mkdir('data') unless Dir.exist?('data')
       puts 'Name your save file:'
       extension = gets.chomp
-      File.open("data/#{extension}.txt", "w") { |save_file| save_file.puts json }
+      File.open("data/#{extension}.yaml", "w") { |save_file| save_file.puts yaml }
       exit
     end
 

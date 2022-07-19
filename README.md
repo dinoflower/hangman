@@ -1,32 +1,30 @@
 # Hangman
 
-TODO: Delete this and the text above, and describe your gem
+A simple game of Hangman created in Ruby and featuring the ability to save and load files. Figure out the mystery word by guessing letters. Don't make six wrong guesses!
+
+Requires Ruby and is playable in the command line.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+The gem is self-contained, i.e. playable without the need to add it to another gemfile.
 
-```ruby
-gem 'hangman'
-```
+Install it with:
 
-And then execute:
-
-    $ bundle install
-
-Or install it yourself as:
-
-    $ gem install hangman
+    $ gem "hangman", git: "https://github.com/dinoflower/hangman"
 
 ## Usage
 
-TODO: Write usage instructions here
+Simply run:
+
+    $ ruby hangman/lib/hangman.rb
+
+Additional navigation may be necessary depending on the save location of the repository. No additional commands required - the game will load on start.
 
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+To install this gem onto your local machine, run `bundle exec rake install`.
 
 ## Contributing
 

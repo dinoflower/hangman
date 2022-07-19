@@ -20,7 +20,7 @@ module Hangman
       save_name = gets.chomp
       f = File.new("data/#{save_name}.yaml")
       yaml = f.read
-      YAML.safe_load(yaml)
+      YAML.load(yaml)
     end
 
     def initialize(word)
@@ -56,6 +56,7 @@ module Hangman
       puts "Name your save file:"
       extension = gets.chomp
       File.open("data/#{extension}.yaml", "w") { |save_file| save_file.puts yaml }
+      puts "Thank you for playing. See you next time!"
       exit
     end
 

@@ -54,7 +54,7 @@ module Hangman
       yaml = YAML.dump(self)
       Dir.mkdir("data") unless Dir.exist?("data")
       puts "Name your save file:"
-      extension = STDIN.gets.chomp
+      extension = STDIN.gets.chomp.gsub(/\W/, "")
       File.open("data/#{extension}.yaml", "w") { |save_file| save_file.puts yaml }
       puts "Thank you for playing. See you next time!"
       exit

@@ -11,7 +11,7 @@ module Hangman
   def self.start_game
     if Dir.exist?("data") && !Dir.empty?("data")
       puts "Would you like to load a saved game? (y/n)"
-      answer = gets.chr.upcase
+      answer = STDIN.gets.chr.upcase
       answer == "Y" ? Game.load_save.play_game : Game.new(Game.pick_word).play_game
     else
       Game.new(Game.pick_word).play_game

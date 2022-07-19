@@ -17,7 +17,7 @@ module Hangman
     def self.load_save
       puts "Please choose your save file:"
       Dir.each_child("data") { |x| puts x.delete_suffix(".yaml") }
-      save_name = gets.chomp
+      save_name = STDIN.gets.chomp.gsub(/\W/, "")
       f = File.new("data/#{save_name}.yaml")
       yaml = f.read
       YAML.load(yaml)
@@ -41,7 +41,7 @@ module Hangman
 
     def prompt_save
       puts "Would you like to save your game? (y/n)"
-      answer = gets.chr.upcase
+      answer = STDIN.gets.chr.upcase
       if answer == "Y"
         save_game
       elsif answer != "Y" && answer != "N"
@@ -54,7 +54,7 @@ module Hangman
       yaml = YAML.dump(self)
       Dir.mkdir("data") unless Dir.exist?("data")
       puts "Name your save file:"
-      extension = gets.chomp
+      extension = STDIN.gets.chomp
       File.open("data/#{extension}.yaml", "w") { |save_file| save_file.puts yaml }
       puts "Thank you for playing. See you next time!"
       exit
@@ -64,7 +64,7 @@ module Hangman
       puts "Incorrect guesses: #{@incorrect_guesses.join(", ")}" unless @incorrect_guesses.empty?
       puts [nil, "You have #{@lives} lives remaining. Guess a letter:"] unless @lives == 1
       puts [nil, "You only have one life left! Guess a letter:"] if @lives == 1
-      letter = gets.chr.upcase
+      letter = STDIN.gets.chr.upcase
       guess_letter unless letter.match?(/[a-zA-Z]/)
 
       check_guess(letter)

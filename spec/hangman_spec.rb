@@ -7,4 +7,3 @@ RSpec.describe Hangman do
     expect(Hangman::VERSION).not_to be nil
   end
 end
-
